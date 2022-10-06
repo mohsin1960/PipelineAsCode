@@ -39,7 +39,7 @@ pipeline {
         }
         stage('DeployToProd') {
             steps {
-                echo12 'dep'
+                echo 'dep'
             }
         }
     }
