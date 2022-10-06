@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+    environment {
+        name ="Mohsin"
+    }
+    parameters {
+        string (name: 'Mohsin', description: 'Who Are You')
+        booleanParam (name: 'isMale', defaultValue: 'true')
+        choice (name: 'City', choices: ['faisalabad', 'Islamabad', 'Lahore'])
+    }
+
+    stages {
+        stage('Commands') {
+            steps {
+                sh '''
+                pwd
+                date
+                cal 2022
+                '''
+            }
+        }
+        stage('EnvironmentVariables') {
+            steps {
+                sh '''
+                echo "${BUILD_ID}"
+                echo "${Mohsin}"
+                '''
+                
+            }
+        }
+        stage('Continue ?') {
+            input{
+                message 'Should wer continue?'
+                ok 'Yes we shuld'
+            }
+            steps {
+                echo 'Deploy Project to Test'
+            }
+        }
+        stage('DeployToProd') {
+            steps {
+                echo12 'dep'
+            }
+        }
+    }
+    post {
+        always {
+            echo 'will say hello always...'
+        }
+        failure {
+            echo 'fail'
+        } 
+        success {
+            echo 'success'
+        }
+    }
+}
